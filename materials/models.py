@@ -10,6 +10,7 @@ class Course(models.Model):
         null=True,
     )
     description = models.TextField(verbose_name="Описание курса", blank=True)
+    owner = models.ForeignKey("users.User", on_delete=models.CASCADE, default=1)
     objects = models.Manager()
 
     class Meta:
@@ -33,6 +34,7 @@ class Lesson(models.Model):
         null=True,
     )
     video_url = models.URLField(verbose_name="Ссылка на видео", blank=True)
+    owner = models.ForeignKey("users.User", on_delete=models.CASCADE, default=1)
     objects = models.Manager()
 
     class Meta:
@@ -41,3 +43,12 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    objects = models.Manager()
+
+    class Meta:
+        unique_together = ("user", "course")
