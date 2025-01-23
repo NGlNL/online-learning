@@ -11,6 +11,7 @@ from users.serializers import UserSerializer
 
 
 class PaymentViewSet(ModelViewSet):
+    """ViewSet для работы с платежами."""
     queryset = Payment.objects.all()
     filter_backends = [
         DjangoFilterBackend,
@@ -20,6 +21,7 @@ class PaymentViewSet(ModelViewSet):
 
 
 class UserCreateAPIView(CreateAPIView):
+    """Регистрация пользователя."""
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
@@ -31,24 +33,28 @@ class UserCreateAPIView(CreateAPIView):
 
 
 class UserList(ListAPIView):
+    """Список пользователей."""
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsAuthenticated,)
 
 
 class UserDetail(RetrieveAPIView):
+    """Детальная информация о пользователе."""
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsAuthenticated,)
 
 
 class UserUpdate(UpdateAPIView):
+    """Обновление информации о пользователе."""
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsAuthenticated,)
 
 
 class UserDelete(DestroyAPIView):
+    """Удаление пользователя."""
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsAuthenticated,)

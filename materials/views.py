@@ -13,15 +13,18 @@ from users.permissions import IsModer, IsOwner
 
 
 class CourseViewSet(ModelViewSet):
+    """ViewSet для работы с курсами."""
     queryset = Course.objects.all()
     pagination_class = MyPagination
 
     def get_serializer_class(self):
+        """Возвращает класс сериализатора в зависимости от действия."""
         if self.action == "retrieve":
             return CourseDetailSerializer
         return CourseSerializer
 
     def get_permissions(self):
+        """Возвращает список разрешений в зависимости от действия."""
         if self.action == "create":
             self.permission_classes = (~IsModer,)
         elif self.action in ["update", "retrieve"]:
@@ -32,35 +35,41 @@ class CourseViewSet(ModelViewSet):
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
+    """APIView для создания уроков."""
     serializer_class = LessonSerializer
     permission_classes = (~IsModer, IsAuthenticated)
     pagination_class = MyPagination
 
 
 class LessonLisAPIView(generics.ListAPIView):
+    """APIView для получения списка уроков."""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = (IsAuthenticated, IsModer)
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
+    """APIView для получения уроков."""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = (IsAuthenticated, IsModer | IsOwner)
 
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
+    """APIView для обновления уроков."""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = (IsAuthenticated, IsModer | IsOwner)
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
+    """APIView для удаления уроков."""
     queryset = Lesson.objects.all()
     permission_classes = (IsAuthenticated, IsOwner | ~IsModer)
 
 
 class SubscriptionView(APIView):
+    """APIView для подписки на курс."""
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
