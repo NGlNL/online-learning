@@ -8,3 +8,6 @@ pillow==11.0.0
 djangorestframework_simplejwt==5.4.0
 django-filter==24.3
 coverage==7.6.10
+drf-yasg==1.21.8
+stripe==11.4.1
+requests==2.32.3

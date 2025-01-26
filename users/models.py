@@ -56,9 +56,15 @@ class Payment(models.Model):
     )
     payment_method = models.CharField(
         max_length=50,
-        choices=(("CASH", "Наличные"), ("TRANSFER", "Перевод на счет")),
+        choices=(
+            ("CASH", "Наличные"),
+            ("TRANSFER", "Перевод на счет"),
+            ("stripe", "Stripe"),
+        ),
         verbose_name="Способ оплаты",
     )
+    stripe_session_id = models.CharField(max_length=255, null=True, blank=True)
+    payment_status = models.CharField(max_length=50, default="pending")
 
     class Meta:
         verbose_name = "Платеж"

@@ -7,13 +7,17 @@ from rest_framework.viewsets import ModelViewSet, generics
 
 from materials.models import Course, Lesson, Subscription
 from materials.paginators import MyPagination
-from materials.serializers import (CourseDetailSerializer, CourseSerializer,
-                                   LessonSerializer)
+from materials.serializers import (
+    CourseDetailSerializer,
+    CourseSerializer,
+    LessonSerializer,
+)
 from users.permissions import IsModer, IsOwner
 
 
 class CourseViewSet(ModelViewSet):
     """ViewSet для работы с курсами."""
+
     queryset = Course.objects.all()
     pagination_class = MyPagination
 
@@ -36,6 +40,7 @@ class CourseViewSet(ModelViewSet):
 
 class LessonCreateAPIView(generics.CreateAPIView):
     """APIView для создания уроков."""
+
     serializer_class = LessonSerializer
     permission_classes = (~IsModer, IsAuthenticated)
     pagination_class = MyPagination
@@ -43,6 +48,7 @@ class LessonCreateAPIView(generics.CreateAPIView):
 
 class LessonLisAPIView(generics.ListAPIView):
     """APIView для получения списка уроков."""
+
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = (IsAuthenticated, IsModer)
@@ -50,6 +56,7 @@ class LessonLisAPIView(generics.ListAPIView):
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
     """APIView для получения уроков."""
+
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = (IsAuthenticated, IsModer | IsOwner)
@@ -57,6 +64,7 @@ class LessonRetrieveAPIView(generics.RetrieveAPIView):
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
     """APIView для обновления уроков."""
+
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = (IsAuthenticated, IsModer | IsOwner)
@@ -64,12 +72,14 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
     """APIView для удаления уроков."""
+
     queryset = Lesson.objects.all()
     permission_classes = (IsAuthenticated, IsOwner | ~IsModer)
 
 
 class SubscriptionView(APIView):
     """APIView для подписки на курс."""
+
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):

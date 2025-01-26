@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "drf_yasg",
     "rest_framework",
     "materials",
     "users",
@@ -155,3 +156,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
+
+STRIPE_TEST_SECRET_KEY = "sk_test_51QlAEMRbY7NhvGGsDNg8kmYujgqEjGwZSiYESRgpXIDYCkOAPVrPEFlBKfsyTalJq58WGsuzpfYDnaRLyTxn6Hj300fUU9IQP3"
+STRIPE_TEST_PUBLISHABLE_KEY = "pk_test_51QlAEMRbY7NhvGGsScGcqKpTOzV0ppbgIrFc6KZFI787lAI47PazZ1AGQCA9q4CMUcxuK8ixgCDgzbE2BcpxKzpi00p8Eruare"
