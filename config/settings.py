@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "users",
     "django_filters",
     "rest_framework_simplejwt",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -157,5 +158,28 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
 
-STRIPE_TEST_SECRET_KEY = "sk_test_51QlAEMRbY7NhvGGsDNg8kmYujgqEjGwZSiYESRgpXIDYCkOAPVrPEFlBKfsyTalJq58WGsuzpfYDnaRLyTxn6Hj300fUU9IQP3"
-STRIPE_TEST_PUBLISHABLE_KEY = "pk_test_51QlAEMRbY7NhvGGsScGcqKpTOzV0ppbgIrFc6KZFI787lAI47PazZ1AGQCA9q4CMUcxuK8ixgCDgzbE2BcpxKzpi00p8Eruare"
+STRIPE_TEST_SECRET_KEY = os.getenv("STRIPE_TEST_SECRET_KEY")
+STRIPE_TEST_PUBLISHABLE_KEY = os.getenv("STRIPE_TEST_PUBLISHABLE_KEY")
+
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CELERY_BEAT_SCHEDULE = {
+    "check_users": {
+        "task": "users.tasks.check_users",
+        "schedule": timedelta(hours=24),
+    },
+}

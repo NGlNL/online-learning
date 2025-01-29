@@ -1,6 +1,7 @@
-from .models import Payment
 import stripe
 from django.conf import settings
+
+from .models import Payment
 
 stripe.api_key = settings.STRIPE_TEST_SECRET_KEY
 
