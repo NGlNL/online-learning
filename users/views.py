@@ -1,9 +1,13 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, status
-from rest_framework.generics import (CreateAPIView, DestroyAPIView,
-                                     ListAPIView, RetrieveAPIView,
-                                     UpdateAPIView)
+from rest_framework.generics import (
+    CreateAPIView,
+    DestroyAPIView,
+    ListAPIView,
+    RetrieveAPIView,
+    UpdateAPIView,
+)
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -11,8 +15,12 @@ from rest_framework.viewsets import ModelViewSet
 from materials.models import Course, Lesson
 from users.models import Payment, User
 from users.serializers import PaymentSerializer, UserSerializer
-from users.services import (create_checkout_session, create_price,
-                            create_product, save_payment)
+from users.services import (
+    create_checkout_session,
+    create_price,
+    create_product,
+    save_payment,
+)
 
 
 class PaymentViewSet(ModelViewSet):

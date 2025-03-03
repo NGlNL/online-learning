@@ -7,8 +7,11 @@ from rest_framework.viewsets import ModelViewSet, generics
 
 from materials.models import Course, Lesson, Subscription
 from materials.paginators import MyPagination
-from materials.serializers import (CourseDetailSerializer, CourseSerializer,
-                                   LessonSerializer)
+from materials.serializers import (
+    CourseDetailSerializer,
+    CourseSerializer,
+    LessonSerializer,
+)
 from users.permissions import IsModer, IsOwner
 
 from .tasks import send_mail_about_course
