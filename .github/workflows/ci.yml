@@ -74,6 +74,7 @@ jobs:
       - name: Deploy to Server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+            echo "Deploying to server: ${{ secrets.DOCKER_HUB_USERNAME }}"
             sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
             sudo docker stop myapp || true
             sudo docker rm myapp || true
