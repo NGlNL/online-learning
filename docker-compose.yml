@@ -47,6 +47,28 @@ services:
     env_file:
       - ./.env
 
+  celery:
+    build: .
+    command: celery -A config worker --loglevel=info
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - .:/code
+
+  celery-beat:
+    build: .
+    command: celery -A config beat --loglevel=info
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - .:/code
+
 volumes:
   postgres_data:
   static_volume:
